@@ -13,3 +13,15 @@ describe("Given I am connected as an employee", () => {
     })
   })
 })
+
+
+
+// examples
+
+// describe("Given I am connected as an employee", () => {
+//   describe("When I fill input with good extension file", () => {
+//     test("Then the file should be upload")
+
+// describe("Given I am connected as an employee", () => {
+//   describe("When I fill input with wrong extension file", () => {
+//     test("Then the file should not be uploaded")
