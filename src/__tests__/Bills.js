@@ -110,32 +110,49 @@ describe("Given I am connected as an employee", () => {
   });
 });
 
-describe("Given I am connected as an employee", () => {
-  describe("When I click on the eye icon", () => {
-    test("Then a modal should appear", () => {
-      const html = BillsUI({ data: bills });
-      document.body.innerHTML = html;
 
+
+
+
+describe("Given I am connected as an employee", () => {
+  describe("When I click on icon eye", () => {
+    test("Then it should have open modal", () => {
+      // Build DOM with data of bills
+      const html = BillsUI({ data: [...bills] });
+      document.body.innerHTML = html;
+  
+      // Mock function handleClickIconEye()
+      const store = null;
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
-
-      const classBills = new Bills({
+      const mockBills = new Bills({
         document,
         onNavigate,
-        firestore: null,
+        store,
         localStorage: window.localStorage,
       });
-
-      const iconEye = screen.getAllByTestId("icon-eye")[0];
-      const modal = document.getElementById("modaleFile");
-
-      const mockFunction = jest.fn(classBills.handleClickIconEye(iconEye));
-      iconEye.addEventListener("click", mockFunction);
-      fireEvent.click(iconEye);
-
-      expect(mockFunction).toHaveBeenCalled();
+  
+      $.fn.modal = jest.fn();
+  
+      const eyes = screen.getAllByTestId("icon-eye");
+      expect(eyes).toBeTruthy();
+  
+      const mockHandleClickIconEye = jest.fn(
+        mockBills.handleClickIconEye(eyes[0])
+      );
+  
+      eyes[0].addEventListener("click", mockHandleClickIconEye);
+      fireEvent.click(eyes[0]);
+  
+      expect(mockHandleClickIconEye).toHaveBeenCalled();
+  
+      const modal = screen.getByTestId("modal-show");
       expect(modal).toBeTruthy();
+      expect(screen.getByText("Justificatif")).toBeTruthy();
+  
+      const urlJustificative = bills[0].fileUrl;
+      expect(urlJustificative).toBeTruthy();
     });
   });
 });
