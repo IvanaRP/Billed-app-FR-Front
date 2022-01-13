@@ -5,10 +5,7 @@
 import { fireEvent, screen } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import BillsUI from "../views/BillsUI.js";
-import Bill, {
-  handleClickNewBill,
-  handleClickIconEye,
-} from "../containers/Bills.js";
+import Bill from "../containers/Bills.js";
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
 import Router from "../app/Router";
 
@@ -76,13 +73,13 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getAllByText("Loading...")).toBeTruthy();
     });
   });
-  describe('When I am on Bills page but back-end send an error message', () => {
-    test('Then, Error page should be rendered', () => {
-      const html = BillsUI({ error: 'some error message' })
-      document.body.innerHTML = html
-      expect(screen.getAllByText('Erreur')).toBeTruthy()
-    })
-  })
+  describe("When I am on Bills page but back-end send an error message", () => {
+    test("Then, Error page should be rendered", () => {
+      const html = BillsUI({ error: "some error message" });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Erreur")).toBeTruthy();
+    });
+  });
 });
 
 describe("Given I am connected as an employee", () => {
@@ -141,95 +138,66 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
-  describe('When I am on Bills page but back-end send an error message', () => {
-    test('Then, Error page should be rendered', () => {
-      const html = BillsUI({ error: 'some error message' })
-      document.body.innerHTML = html
-      expect(screen.getAllByText('Erreur')).toBeTruthy()
-    })  
-  })
+  describe("When I am on Bills page but back-end send an error message", () => {
+    test("Then, Error page should be rendered", () => {
+      const html = BillsUI({ error: "some error message" });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Erreur")).toBeTruthy();
+    });
+  });
 
-  describe('When I am on Bills Page and I click on the New Bill button', () => {
-    test('Then it should display the New Bill Page', () => {
-      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      window.localStorage.setItem('user', JSON.stringify({
-        type: 'Employee'
-      }))
-      const html = BillsUI({ data:[]})
-      document.body.innerHTML = html
+  describe("When I am on Bills Page and I click on the New Bill button", () => {
+    test("Then it should display the New Bill Page", () => {
+      Object.defineProperty(window, "localStorage", {
+        value: localStorageMock,
+      });
+      window.localStorage.setItem(
+        "user",
+        JSON.stringify({
+          type: "Employee",
+        })
+      );
+      const html = BillsUI({ data: [] });
+      document.body.innerHTML = html;
       const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname })
-      }
+        document.body.innerHTML = ROUTES({ pathname });
+      };
       const billsList = new Bills({
-        document, onNavigate, firestore:null, localStorage: window.localStorage
-      })
+        document,
+        onNavigate,
+        firestore: null,
+        localStorage: window.localStorage,
+      });
 
-      const handleClickNewBill = jest.fn(billsList.handleClickNewBill)
-      const buttonNewBill = screen.getByTestId('btn-new-bill')
-      expect(buttonNewBill).toBeTruthy()
-      buttonNewBill.addEventListener('click', handleClickNewBill)
-      fireEvent.click(buttonNewBill)
-      expect(screen.getByText('Envoyer une note de frais')).toBeTruthy() 
-    })         
-  })
-
-
-
-
-  // describe("When I click on the icon eye", () => {
-  //   test("Then it should open a modal", () => {
-  //     Object.defineProperty(window, "localStorage", {
-  //       value: localStorageMock,
-  //     });
-  //     window.localStorage.setItem(
-  //       "user",
-  //       JSON.stringify({
-  //         type: "Employee",
-  //       })
-  //     );
-  //     const html = BillsUI({ data: bills });
-  //     document.body.innerHTML = html;
-  //     const onNavigate = (pathname) => {
-  //       document.body.innerHTML = ROUTES({ pathname });
-  //     };
-  //     $.fn.modal = jest.fn();
-  //     const billsList = new Bills({
-  //       document,
-  //       onNavigate,
-  //       firestore: null,
-  //       localStorage: window.localStorage,
-  //     });
-  //     const eye = screen.getAllByTestId("icon-eye")[0];
-  //     const handleClickIconEye = jest.fn(billsList.handleClickIconEye(eye));
-  //     const modal = document.getElementById("modaleFile");
-  //     eye.addEventListener("click", handleClickIconEye);
-  //     fireEvent.click(eye);
-  //     expect(handleClickIconEye).toHaveBeenCalled();
-  //     expect(modal).toBeTruthy();
-  //   });
-  // });
+      const handleClickNewBill = jest.fn(billsList.handleClickNewBill);
+      const buttonNewBill = screen.getByTestId("btn-new-bill");
+      expect(buttonNewBill).toBeTruthy();
+      buttonNewBill.addEventListener("click", handleClickNewBill);
+      fireEvent.click(buttonNewBill);
+      expect(screen.getByText("Envoyer une note de frais")).toBeTruthy();
+    });
+  });
 });
-
 
 describe("Given an employee enter his email and his password", () => {
   describe("When the inputs are wrong", () => {
     test("Then error page appear", () => {
-      const html = BillsUI({ error: 'some error message' })
-      document.body.innerHTML = html
-      expect(screen.getAllByText('Erreur')).toBeTruthy()
-      expect(screen.getAllByText('some error message')).toBeTruthy()
-    })
-  })
+      const html = BillsUI({ error: "some error message" });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Erreur")).toBeTruthy();
+      expect(screen.getAllByText("some error message")).toBeTruthy();
+    });
+  });
   describe("When the inputs are good", () => {
     test("Then loading page appear", () => {
-      const html = BillsUI({ loading: true })
-      document.body.innerHTML = html
-      expect(screen.getAllByText('Loading...')).toBeTruthy()
-    })
-  })
-})
+      const html = BillsUI({ loading: true });
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Loading...")).toBeTruthy();
+    });
+  });
+});
 
-// test d'intégration GET  = like form dashboard.js
+// test d'intégration GET  = like from dashboard.js
 describe("Given I am a user connected as employee", () => {
   describe("When I navigate to Bills Page", () => {
     test("Then it fetches bills from mock API GET", async () => {
