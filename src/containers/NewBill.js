@@ -59,9 +59,8 @@ export default class NewBill {
       'e.target.querySelector(`input[data-testid="datepicker"]`).value',
       e.target.querySelector(`input[data-testid="datepicker"]`).value
     );
-    
+
     const bill = {
-     
       type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
       name: e.target.querySelector(`input[data-testid="expense-name"]`).value,
       amount: parseInt(
@@ -97,7 +96,6 @@ export default class NewBill {
   };
 }
 
-
 // // works = cant upload pdf etc
 // import { ROUTES_PATH } from '../constants/routes.js'
 // import Logout from "./Logout.js"
@@ -120,7 +118,7 @@ export default class NewBill {
 //     const filePath = e.target.value.split(/\\/g)
 //     const fileName = filePath[filePath.length-1]
 //     const fileExtension = fileName.split('.').pop();
-//     if(['PNG', 'JPG', 'JPEG'].includes(fileExtension.toUpperCase())) { 
+//     if(['PNG', 'JPG', 'JPEG'].includes(fileExtension.toUpperCase())) {
 //       this.firestore
 //         .storage
 //         .ref(`justificatifs/${fileName}`)
@@ -168,8 +166,6 @@ export default class NewBill {
 //     }
 //   }
 // }
-
-
 
 // Original code
 // import { ROUTES_PATH } from '../constants/routes.js'
@@ -248,4 +244,3 @@ export default class NewBill {
 //     }
 //   }
 // }
-

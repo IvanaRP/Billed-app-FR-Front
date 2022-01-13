@@ -3,7 +3,7 @@
 // import { bills } from "../fixtures/bills.js";
 
 import { fireEvent, screen } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
+// import userEvent from "@testing-library/user-event";
 import BillsUI from "../views/BillsUI.js";
 import Bill from "../containers/Bills.js";
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
@@ -14,13 +14,11 @@ import { localStorageMock } from "../__mocks__/localStorage.js";
 import store from "../__mocks__/store";
 import Bills from "../containers/Bills.js";
 
+// 74% ok
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
-    // test("Then bill icon in vertical layout should be highlighted", () => {
-    //   const html = BillsUI({ data: [] });
-    //   document.body.innerHTML = html;
-    //   //to-do write expect expression
-    // });
+    //to-do write expect expression
     test("Then bill icon in vertical layout should be highlighted", () => {
       store.bills = () => ({ bills, get: jest.fn().mockResolvedValue() });
       Object.defineProperty(window, "localStorage", {
@@ -32,10 +30,13 @@ describe("Given I am connected as an employee", () => {
           type: "Employee",
         })
       );
+      // Build DOM with Bills
       const pathname = ROUTES_PATH["Bills"];
       Object.defineProperty(window, "location", { value: { hash: pathname } });
       document.body.innerHTML = `<div id="root"></div>`;
+      // Router to have active class
       Router();
+
       const icoWin = screen.getByTestId("icon-window");
       const iconActived = icoWin.classList.contains("active-icon");
       expect(iconActived).toBeTruthy();
@@ -58,7 +59,7 @@ describe("Given I am connected as an employee", () => {
   });
 
   describe("When there are bills on the Bills page", () => {
-    test("It should display an icon eye", () => {
+    test("Then it should display an icon eye", () => {
       const html = BillsUI({ data: bills });
       document.body.innerHTML = html;
       const iconEye = screen.getAllByTestId("icon-eye");
@@ -67,14 +68,14 @@ describe("Given I am connected as an employee", () => {
   });
 
   describe("When I am on Bills page but it is loading", () => {
-    test("Then, Loading page should be rendered", () => {
+    test("Then Loading page should be rendered", () => {
       const html = BillsUI({ loading: true });
       document.body.innerHTML = html;
       expect(screen.getAllByText("Loading...")).toBeTruthy();
     });
   });
   describe("When I am on Bills page but back-end send an error message", () => {
-    test("Then, Error page should be rendered", () => {
+    test("Then Error page should be rendered", () => {
       const html = BillsUI({ error: "some error message" });
       document.body.innerHTML = html;
       expect(screen.getAllByText("Erreur")).toBeTruthy();
@@ -135,46 +136,6 @@ describe("Given I am connected as an employee", () => {
 
       expect(mockFunction).toHaveBeenCalled();
       expect(modal).toBeTruthy();
-    });
-  });
-
-  describe("When I am on Bills page but back-end send an error message", () => {
-    test("Then, Error page should be rendered", () => {
-      const html = BillsUI({ error: "some error message" });
-      document.body.innerHTML = html;
-      expect(screen.getAllByText("Erreur")).toBeTruthy();
-    });
-  });
-
-  describe("When I am on Bills Page and I click on the New Bill button", () => {
-    test("Then it should display the New Bill Page", () => {
-      Object.defineProperty(window, "localStorage", {
-        value: localStorageMock,
-      });
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify({
-          type: "Employee",
-        })
-      );
-      const html = BillsUI({ data: [] });
-      document.body.innerHTML = html;
-      const onNavigate = (pathname) => {
-        document.body.innerHTML = ROUTES({ pathname });
-      };
-      const billsList = new Bills({
-        document,
-        onNavigate,
-        firestore: null,
-        localStorage: window.localStorage,
-      });
-
-      const handleClickNewBill = jest.fn(billsList.handleClickNewBill);
-      const buttonNewBill = screen.getByTestId("btn-new-bill");
-      expect(buttonNewBill).toBeTruthy();
-      buttonNewBill.addEventListener("click", handleClickNewBill);
-      fireEvent.click(buttonNewBill);
-      expect(screen.getByText("Envoyer une note de frais")).toBeTruthy();
     });
   });
 });

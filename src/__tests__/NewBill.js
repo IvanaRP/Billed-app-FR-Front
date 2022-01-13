@@ -143,8 +143,6 @@ describe("Given I am connected as an employee", () => {
       expect(mockHandleSubmit).toHaveBeenCalled();
     });
   });
-
- 
 });
 
 // test d'intégration POST  = like from dashboard.js
