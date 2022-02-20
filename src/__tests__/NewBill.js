@@ -193,43 +193,4 @@ describe("Given I am an user connected as employee", () => {
   });
 });
 
-// examples
 
-// describe("Given I am connected as an employee", () => {
-//   describe("When I fill input with good extension file", () => {
-//     test("Then the file should be upload")
-
-// describe("Given I am connected as an employee", () => {
-//   describe("When I fill input with wrong extension file", () => {
-//     test("Then the file should not be uploaded")
-
-// test d'intégration POST
-// describe("Given I am a user connected as Admin", () => {
-//   describe("When I create a new bill", () => {
-//     test("Then it should add bill to mock API POST", async () => {
-//       const postSpy = jest.spyOn(store, "post");
-
-//       const bills = await store.get();
-//       expect(getSpy).toHaveBeenCalledTimes(1);
-//       expect(bills.data.length).toBe(4);
-//     });
-//     test("fetches bills from an API and fails with 404 message error", async () => {
-//       store.get.mockImplementationOnce(() =>
-//         Promise.reject(new Error("Erreur 404"))
-//       );
-//       const html = BillsUI({ error: "Erreur 404" });
-//       document.body.innerHTML = html;
-//       const message = await screen.getByText(/Erreur 404/);
-//       expect(message).toBeTruthy();
-//     });
-//     test("fetches messages from an API and fails with 500 message error", async () => {
-//       store.get.mockImplementationOnce(() =>
-//         Promise.reject(new Error("Erreur 500"))
-//       );
-//       const html = BillsUI({ error: "Erreur 500" });
-//       document.body.innerHTML = html;
-//       const message = await screen.getByText(/Erreur 500/);
-//       expect(message).toBeTruthy();
-//     });
-//   });
-// });
