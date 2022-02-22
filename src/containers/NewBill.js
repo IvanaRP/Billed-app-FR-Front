@@ -35,7 +35,7 @@ export default class NewBill {
     }
   };
 
-  /* istanbul ignore next */
+
   handleStore(formData, fileName) {
     this.store
       .bills()
