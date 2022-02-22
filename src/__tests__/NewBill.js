@@ -147,7 +147,7 @@ describe("Given I am connected as an employee", () => {
 
 // test d'intégration POST  = like from dashboard.js
 describe("Given I am an user connected as employee", () => {
-  describe("When I navigate to Dashboard employee", () => {
+  describe("When I navigate to NewBill page", () => {
     test("Add bills from mock API POST", async () => {
       const getSpy = jest.spyOn(store, "post");
       const newBill = {
